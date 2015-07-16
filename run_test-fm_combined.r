@@ -17,13 +17,9 @@ if (!exists("save_dist", mode = "function")) {
 if (!exists("save_best_iter", mode = "function")) {
     source("save_best_fm_result.r")
 }
-#if (!exists("fm_method", mode = "function")) {
-source("fm_method.r")
+
 source("fm_method_combined.r")
-#}
-#if (!exists("prepare_data_isolated", mode = "function")) {
 source("fm-prepare_data.r")
-#}
 
 
 # Auswahl des Modells
@@ -31,8 +27,7 @@ source("fm-prepare_data.r")
 method.name <- "FM"
 
 
-# load all models
-# create data structure
+# initialize all models
 print("raeding all models from file ...")
 all.models <- list()
 all.models$names <- c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT")
@@ -48,13 +43,13 @@ print("raeding models done!")
 
 
 # initialize ranges (FM training)
-fm.method.range <- c("als")
-model.name.range <- c("GOLF") #c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT")
-k.range <- c(10) #seq(10, 40, 10) #c(30)
-stdev.range <- c(0.2) # seq(0.0, 1.0, 0.2) #seq(0.0, 1.0, 0.2) # seq(0.0, 0.5, 0.1) #seq(0, 0.5, 0.1)
-iter.range <- c(400) #seq(400, 2000, 400) # seq(400, 2000, 400) 
-reg.range <- c(0.8) #seq(0.0, 1.0, 0.2)
-lr.range <- c(0.0000005) # c(0.000005) (5 * 10e-7) will not work, must be lower
+fm.method.range <- c("mcmc")
+model.name.range <- c("GOLF") #c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT") # c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT")
+k.range <- c(30) #seq(10, 40, 10)
+stdev.range <- c(0.8) #seq(0.0, 1.0, 0.2) # seq(0.0, 0.5, 0.1)
+iter.range <- c(1600) #seq(400, 2000, 400)
+reg.range <-  c(0.0) #seq(0.0, 1.0, 0.5) #seq(0.0, 1.0, 0.2)
+lr.range <- c(0.0) # seq(1e-06, 1e-05, 2e-06)
 
 # initialize ranges (data representations)
 w_year.range <- c(0.0) #c(1.0, 0.0)
@@ -63,16 +58,15 @@ damage_classes.range <- c('none') #c('none','byregion')
 region.costs.range <- c(FALSE)
 PZ.range <- c(0) #,0.005, 0.01, 0.015, 0.02, 0,025)
 PNZ.range <- c(0) #, 0.001, 0.002)
-
+metadata.range <- NA #list(c("ENGINE_TYPE_GROUP", "MODEL", "MANUFACTURER")) # c(NA, c("ENGINE_TYPE_GROUP")) #c("ENGINE_TYPE_GROUP", "MODEL", "MANUFACTURER")
+combined <- TRUE # indicates whether to use other models for training (TRUE) or just the one to test (FALSE)
 distorted <- FALSE
-metadata <- c() #c("ENGINE_TYPE_GROUP") #c("ENGINE_TYPE_GROUP", "MODEL", "MANUFACTURER")
-combined <- FALSE
 
 
-
+#metadata <- c("MODEL", "MANUFACTURER")
     
     
-    
+for (metadata in metadata.range) {
 for (w_year in w_year.range) {
 for (w_kw in w_kw.range) {
 for (PZ in PZ.range) {
@@ -170,6 +164,7 @@ for (region.costs in region.costs.range) {
             }
             }
         }
+    }
     }
     }
     }

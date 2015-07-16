@@ -1,5 +1,8 @@
 
 
+# prepares data for model.name car model according to some.params
+
+
 prepare_data_isolated <- function(car.model, model.name, region.costs=FALSE, some.params=NA) {
     
     # initialize default params
@@ -219,9 +222,5 @@ prepare_data_isolated <- function(car.model, model.name, region.costs=FALSE, som
     
 }
 
-
-prepare_data_combined <- function() {
-    
-}
 
 

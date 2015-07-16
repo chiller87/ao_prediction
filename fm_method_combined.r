@@ -1,10 +1,9 @@
 #
-# lm_method
+# fm_method (combined)
 #
 # args:
-#   (data)    car.model = komplette Fahrzeugdaten im overview_* Format
-#   (bool) region.costs = schaetze Regionskosten statt totaler Kosten
-#   (list)  some.params = Parameter die Werte aus der Menge von params ueberschrieben sollen
+#   (data)   all.models = all model names, current model, fore every model: raw_data (overview_* format), data (used for libfm)
+#   (list)  some.params = Parameter die Werte aus der Menge von params ueberschreiben sollen
 #   (vector)      train = boolscher Vektor der zum Training zu nehmenden Zeilen aus car.model
 #
 # returns:
@@ -179,7 +178,7 @@ fm_method_combined <- function(all.models, some.params=NA, train=NA)
         
         
         # init parts for libfm execution
-        libfm.cmd <- "mylibfm -task r"
+        libfm.cmd <- "libfm -task r"
         libfm.train <- "-train training.libfm"
         libfm.test <- "-test test.libfm"
         libfm.out <- paste("-out ", outfile, sep="")

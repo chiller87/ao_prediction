@@ -44,7 +44,7 @@ print("raeding models done!")
 
 # initialize ranges (FM training)
 fm.method.range <- c("mcmc")
-model.name.range <- c("GOLF") #c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT") # c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT")
+model.name.range <- c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT") # c("GOLF", "SERIES 3", "POLO", "C-CLASS", "ASTRA", "PASSAT")
 k.range <- c(30) #seq(10, 40, 10)
 stdev.range <- c(0.8) #seq(0.0, 1.0, 0.2) # seq(0.0, 0.5, 0.1)
 iter.range <- c(1600) #seq(400, 2000, 400)
@@ -52,8 +52,8 @@ reg.range <-  c(0.0) #seq(0.0, 1.0, 0.5) #seq(0.0, 1.0, 0.2)
 lr.range <- c(0.0) # seq(1e-06, 1e-05, 2e-06)
 
 # initialize ranges (data representations)
-w_year.range <- c(0.0) #c(1.0, 0.0)
-w_kw.range <- c(0.0) #c(1.0, 0.0)
+w_year.range <- c(1.0) #c(1.0, 0.0)
+w_kw.range <- c(1.0) #c(1.0, 0.0)
 damage_classes.range <- c('none') #c('none','byregion')
 region.costs.range <- c(FALSE)
 PZ.range <- c(0) #,0.005, 0.01, 0.015, 0.02, 0,025)
@@ -63,10 +63,10 @@ combined <- TRUE # indicates whether to use other models for training (TRUE) or 
 distorted <- FALSE
 
 
-#metadata <- c("MODEL", "MANUFACTURER")
+metadata <- c("MODEL", "MANUFACTURER", "ENGINE_TYPE_GROUP")
     
     
-for (metadata in metadata.range) {
+for (metadatas in metadata.range) {
 for (w_year in w_year.range) {
 for (w_kw in w_kw.range) {
 for (PZ in PZ.range) {

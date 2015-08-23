@@ -25,19 +25,7 @@ save_dist <- function(region.costs, result, model, method.name) {
   
   params$metadata <- paste(params$metadata, collapse=" ")
   data_f <- t(c(model,params,region.costs,mae, medae, cdf_ae, mre, medre, cdf_re, reject))
-  #print(data_f)
-  
-  #data_f <- t(c(model,parameter,mae, medae, cdf_ae, mre, medre, cdf_re,reject))
-  #test <- data.frame(data_f)
-  #print(test)
-  #data_f <- data.frame(mae,2,3,4)
-  #print(data_f)
-  #cnames <- paste("mean(ae)","median(ae)",sep=",")
-  #print(cnames)
-  #cat(sprintf("AE: mean=%.2f, median=%.2f,", mean(ae), median(ae)))
-  #for (i in 1:length(probs_ae)) {
-   # cat(sprintf("P(AE<%d)=%5.4f, ", probs_ae[i], cdf_ae[i]))
-  #}
+
   print("save data to csv")
   write.table(data_f,file=paste("auswertung/",model,"/",paste(model,"test",method.name,sep="_"),".csv",sep=""), sep=",",append=TRUE, col.names=FALSE, row.names=FALSE)
   #  write.table(data_f,file=paste("auswertung/",model"",model,"parameter",title,".csv",sep=""), sep=",",append=TRUE, col.names=FALSE, row.names=FALSE)
